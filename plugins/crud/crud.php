@@ -22,3 +22,36 @@ if( !define('WPINC')) exit:
                                                         NOME VARCHAR(255) NOT NULL,
                                                         WHATSAPP BIGINT UNSIGNED NOT NULL)");
     }
+
+    register_deactivation_hook(__FILE__, 'apagar_tabela');
+
+function apagar_tabela()
+{
+    global $wpdb;
+    $wpdb->query(" DROP TABLE {$wpdb->prefix}agenda");
+}
+
+add_action('admin_menu', 'menu_do_meu_plugin');
+function menu_do_meu_plugin()
+{
+    /*
+    add_menu_page( 'configurações do Meu Plug-in',
+    'Meu Plug-in',
+    'administrator',
+    'meu-plugin-config',
+    'abre_configuracoes',
+'dashicons-admin-generic');
+*/
+    add_submenu_page(
+        'options-general.php',
+        'Configurações do Meu Plugin',
+        'Meu Plug-in',
+        'administrator',
+        'meu-plugin-config',
+        'abre_configuracoes'
+    );
+}
+function abre_configuracoes()
+{
+    require 'lista_tpl.php';
+}

@@ -14,6 +14,11 @@
 
 add_action( 'admin_menu', 'menu_plugin');
 
+function set_configs(){
+    register_setting ('configs_exemplo', 'api-token');
+    register_setting ('configs_exemplo', 'api-url');
+}
+
 
 function menu_plugin() {
     //criar nível item no primeiro nível do menu
